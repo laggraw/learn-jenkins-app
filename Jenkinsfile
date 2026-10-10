@@ -16,6 +16,7 @@ pipeline {
             // }
             steps {
                 sh '''
+                    echo "Build stage started"
                     ls -la
                     node --version
                     npm --version
@@ -34,6 +35,7 @@ pipeline {
             // }
             steps {
                 sh '''
+                    echo "Test stage started"   
                   test -f 'build/index.html'
                     npm test    
                     ls -la
@@ -41,5 +43,11 @@ pipeline {
             }
         }
     }
-        
+
+       post{
+           always {
+               echo 'Test stage completed'
+               junit 'build/test-results/**/*.xml'
+           }
+       } 
 }
