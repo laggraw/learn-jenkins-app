@@ -55,8 +55,8 @@ pipeline {
                     steps {
                         sh '''
                             echo "E2E stage started"   
-                            npm install -g serve
-                            serve -s build  
+                            npm install serve
+                           node_modules/.bin/serve -s build  
                             sleep 10
                             npx playwright test 
                           
