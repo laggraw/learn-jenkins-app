@@ -46,6 +46,14 @@ pipeline {
                                     ls -la
                                 '''
                             }
+                            post{
+                                    always {
+                                        echo 'Unit Test post Execution stage  '
+                                        junit 'jest-results/junit.xml'
+                                   
+                                    }
+                                } 
+
                         }
 
                 stage('E2E') {
@@ -66,18 +74,18 @@ pipeline {
                                 
                                 '''
                             }
+                            post{
+                                    always {
+                                        echo 'E2E post Execution stage'
+                                      
+                                        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'playwright HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+                                    }
+                                } 
+
                         }
             }
         }
-
         
     }
-
-       post{
-           always {
-               echo 'Test stage completed'
-               junit 'jest-results/junit.xml'
-               publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'playwright HTML Report', reportTitles: '', useWrapperFileDirectly: true])
-           }
-       } 
+       
 }
