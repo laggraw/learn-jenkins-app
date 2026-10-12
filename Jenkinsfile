@@ -6,6 +6,9 @@ pipeline {
     //                 reuseNode true
     //             }
     //         }
+    environment {
+        NETLIFY_SITE_ID = '4ae7303d-8444-4ad2-af1a-bd747a6cc646'
+    }
 
     stages {
         stage('Build') {
@@ -58,6 +61,8 @@ pipeline {
                     echo "Deploy stage started"
                     npm install netlify-cli
                     node_modules/.bin/netlify --version
+                    echo "DEPLOYING TO $NETLIFY_SITE_ID"
+                  
                
                 '''
             }
